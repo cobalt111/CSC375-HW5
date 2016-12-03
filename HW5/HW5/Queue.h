@@ -30,10 +30,15 @@ public:
 	bool peek( DataType & frontElement );  	
 	bool isEmpty( ) const;
 	void makeEmpty( );
-
-	// added these two functions to queue.h
+	// added this function to find a particular element with
+	bool findElement(const DataType & element);
+	DataType returnAtLocation(int elementLocation);
+	// added replace function to replace specific elements in the queue
+	bool replace(const DataType & toSubstitute);
 	void print();
 	void reversePrint();
+	// created getTotal to get the number of elements in the queue
+	int getTotal();
 private:
 	Node<DataType> *front;
 	Node<DataType> *back;
@@ -91,6 +96,19 @@ inline Queue<DataType>& Queue<DataType>::operator = (const Queue<DataType> & rqu
 template<class DataType>
 inline void Queue<DataType>::enqueue(const DataType & element)
 {
+	// added step to check if the queue is of length 4
+	if (numElements > 3) {
+
+		DataType toLeave;
+
+		(*this).dequeue(toLeave);
+
+		std::cout << std::endl << "Capacity reached. " << toLeave << "is leaving the SmartPark." << std::endl;
+
+		numElements--;
+	}
+
+
 	// create new node to put the enqueued element in
 	Node<DataType> *ptr = new Node<DataType>;
 
@@ -204,6 +222,57 @@ inline void Queue<DataType>::makeEmpty()
 	}
 }
 
+// findElement is used to facilitate finding a specific element in the queue
+template<class DataType>
+inline bool Queue<DataType>::findElement(const DataType & element)
+{
+	current = front;
+
+	do 
+	{
+		if (current->info == element)
+			return true;
+
+		else current = current->next;
+	
+	} while (current != back);
+
+	// if not found in loop
+	return false;
+}
+
+// added function to return info at a particular location for use in the printTable function
+template<class DataType>
+inline DataType Queue<DataType>::returnAtLocation(int elementLocation)
+{
+	current = front;
+
+	// iterate through loop to the requested element's location
+	for (int i = 0; i > elementLocation; i++)
+		current = current->next;
+
+	return current->info;
+}
+
+// created replace function to replace info at a particular element, TODO figure out if there's a better way than to just use find again
+template<class DataType>
+inline bool Queue<DataType>::replace(const DataType & toSubstitute)
+{
+	current = front;
+
+	do
+	{
+		if (current->info == element)
+			current->info = toSubstitute;
+			return true;
+
+		else current = current->next;
+
+	} while (current != back);
+
+	return false;
+}
+
 // 6. print (prints all the elements from front to the end)
 template<class DataType>
 inline void Queue<DataType>::print()
@@ -220,7 +289,7 @@ inline void Queue<DataType>::print()
 		// loop to print nodes
 		while (current != back) 
 		{
-			std::cout << current->info << std::endl;
+			std::cout << current->info;
 			// once printed, move current to the next node
 			current = current->next;
 		}
@@ -257,6 +326,12 @@ inline void Queue<DataType>::reversePrint()
 		// when there isn't a "previous" left, print the first node
 		// std::cout << current->info << std::endl;
 	}
+}
+
+template<class DataType>
+inline int Queue<DataType>::getTotal()
+{
+	return numElements;
 }
 
 template<class DataType>

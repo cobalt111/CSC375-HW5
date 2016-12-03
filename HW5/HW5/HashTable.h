@@ -1,11 +1,7 @@
-#pragma once
+// HashTable.h -- class template for a hash table using chaining
 
 #include "Queue.h"
 #include "Array.h"
-#include <iostream>
-
-
-// HashTable.h -- class template for a hash table using chaining
 
 // client must provide a hash function with the following characteristics:
 //		1 input parameter of DataType (see below), passed by const reference
@@ -30,11 +26,10 @@
 // the (default) assignment operator, or the insert function if out of heap memory.
 
 
-
 // Uses the struct Profile made in earlier assignments
 struct Profile {
 	std::string user;
-	// removed state because it is unused
+	// took out state since we don't use it
 	// std::string state;
 
 	// overloaded operator for printing out the contents of info
@@ -45,18 +40,22 @@ struct Profile {
 };
 
 
+
+
+
 template <class DataType>
 class HashTable
 {
 public:
 	HashTable(int(*hf)(const DataType &), int s);
 	bool insert(const DataType & newObject); // returns true if successful; returns
-											 // false if invalid index was returned 
-											 // from hash function
+										 // false if invalid index was returned 
+										 // from hash function
 	bool retrieve(DataType & retrieved);  // see description above class template
 	bool remove(DataType & removed);      // see description above class template 
 	bool update(DataType & updateObject); // see description above class template
 	void makeEmpty();
+	void printTable();
 private:
 	Array<Queue<DataType>> table;
 	int(*hashfunc)(const DataType &); // pointer to hash function from client
@@ -71,45 +70,49 @@ HashTable<DataType>::HashTable(int(*hf)(const DataType &), int s)
 	hashfunc = hf;
 }
 
+// fixed to use enqueue
 template <class DataType>
 bool HashTable<DataType>::insert(const DataType & newObject)
 {
 	int location = hashfunc(newObject);
 	if (location < 0 || location >= table.length())
 		return false;
-	table[location].insert(newObject);
+	table[location].enqueue(newObject);
 	return true;
 }
 
+// fixed to use peek
 template <class DataType>
 bool HashTable<DataType>::retrieve(DataType & retrieved)
 {
 	int location = hashfunc(retrieved);
 	if (location < 0 || location >= table.length())
 		return false;
-	if (!table[location].retrieve(retrieved))
+	if (!table[location].peek(retrieved))
 		return false;
 	return true;
 }
 
+// fixed to use dequeue
 template <class DataType>
 bool HashTable<DataType>::remove(DataType & removed)
 {
 	int location = hashfunc(removed);
 	if (location < 0 || location >= table.length())
 		return false;
-	if (!table[location].remove(removed))
+	if (!table[location].dequeue(removed))
 		return false;
 	return true;
 }
 
+// TODO make find and replace functionality in Queue.h
 template <class DataType>
 bool HashTable<DataType>::update(DataType & updateObject)
 {
 	int location = hashfunc(updateObject);
 	if (location < 0 || location >= table.length())
 		return false;
-	if (!table[location].find(updateObject))
+	if (!table[location].findElement(updateObject))
 		return false;
 	table[location].replace(updateObject);
 	return true;
@@ -120,6 +123,22 @@ void HashTable<DataType>::makeEmpty()
 {
 	for (int i = 0; i < table.length(); i++)
 		table[i].makeEmpty();
+}
+
+// created printTable function to print out entire table at the end
+template<class DataType>
+inline void HashTable<DataType>::printTable()
+{
+	std::cout << std::endl << std::endl << "This is the current table: " << std::endl;
+
+	for (int i = 0; i < table.length(); i++)
+	{
+		std::cout << "The queue at location " << i << " is: " << std::endl;
+
+		table[i].print();
+
+		std::cout << std::endl;
+	}
 }
 
 
