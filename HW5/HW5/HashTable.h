@@ -34,7 +34,7 @@ struct Profile {
 
 	// overloaded operator for printing out the contents of info
 	friend std::ostream& operator << (std::ostream& os, Profile profile) {
-		os << std::endl << profile.user << std::endl;
+		os << profile.user;
 		return os;
 	}
 };
@@ -129,11 +129,11 @@ void HashTable<DataType>::makeEmpty()
 template<class DataType>
 inline void HashTable<DataType>::printTable()
 {
-	std::cout << std::endl << std::endl << "This is the current table: " << std::endl;
+	std::cout << std::endl << std::endl << "This is the current table: " << std::endl << std::endl;
 
 	for (int i = 0; i < table.length(); i++)
 	{
-		std::cout << "The queue at location " << i << " is: " << std::endl;
+		std::cout << "The queue at location " << i << " from first to last is: " << std::endl;
 
 		table[i].print();
 
