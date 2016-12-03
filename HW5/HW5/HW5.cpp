@@ -44,7 +44,7 @@ int main() {
 	// placeholder string
 	string currentString;
 
-	// TODO fix this
+	// loop to add names to table
 	cout << endl << "Adding names to table..." << endl;
 	if (inThisFile.is_open())
 	{
@@ -52,12 +52,12 @@ int main() {
 		{
 			stringstream ss(currentString);
 			getline(ss, tempProfile.user, '\t');
-					
-			// TODO fix enqueueing profile into hash table
+			
 			hashTable.insert(tempProfile);
 		}
 	}
 
+	// print current contents of the table
 	hashTable.printTable();
 
 

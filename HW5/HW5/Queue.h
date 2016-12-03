@@ -103,9 +103,10 @@ inline void Queue<DataType>::enqueue(const DataType & element)
 
 		(*this).dequeue(toLeave);
 
-		std::cout << std::endl << "Capacity reached. " << toLeave << "is leaving the SmartPark." << std::endl;
+		std::cout << std::endl << "Capacity reached. " << toLeave << " is leaving the SmartPark." << std::endl;
 
-		numElements--;
+		std::cout << "Current queue: " << std::endl;
+		(*this).print();
 	}
 
 
@@ -289,7 +290,7 @@ inline void Queue<DataType>::print()
 		// loop to print nodes
 		while (current != back) 
 		{
-			std::cout << current->info;
+			std::cout << current->info << " -> ";
 			// once printed, move current to the next node
 			current = current->next;
 		}
