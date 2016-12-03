@@ -6,10 +6,6 @@
 
 #include <iostream>
 
-//Queue Class:
-//Write a Queue class using doubly-linked structure and implement the following
-//functionalities.
-
 
 // changed the Node struct to handle doubly linked functions
 template <class DataType>
@@ -43,10 +39,12 @@ private:
 	Node<DataType> *back;
 	Node<DataType> header;
 
-	// added current pointer to "return" data with
 	Node<DataType> *current;
 
 	inline void deepCopy( const Queue<DataType> & original );
+
+	// added number to keep track of how many elements in the queue
+	int numElements;
 };
 
 template<class DataType>
@@ -56,6 +54,7 @@ inline Queue<DataType>::Queue()
 	front = back = current = &header;
 	header.next = NULL;
 	header.previous = NULL;
+	numElements = 0;
 }
 
 template<class DataType>
@@ -106,6 +105,9 @@ inline void Queue<DataType>::enqueue(const DataType & element)
 
 	// move the back pointer so that it points to the end node
 	back = ptr;
+
+	// added numElements to track elements
+	numElements++;
 }
 
 
@@ -138,6 +140,9 @@ inline bool Queue<DataType>::dequeue(DataType & deqElement)
 
 		// delete the element at front of queue
 		delete ptr;
+
+		// added numElements
+		numElements--;
 
 		// upon success
 		return true;
@@ -193,6 +198,9 @@ inline void Queue<DataType>::makeEmpty()
 			delete ptr;
 		} 
 		while (back != &header); // while there are still nodes before back
+
+		// added numElements
+		numElements = 0;
 	}
 }
 
