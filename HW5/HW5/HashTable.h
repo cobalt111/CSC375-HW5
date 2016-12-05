@@ -57,7 +57,7 @@ public:
 	void makeEmpty();
 	void printTable();
 private:
-	Array<Queue<DataType>> table;
+	Array< Queue<DataType> > table;
 	int(*hashfunc)(const DataType &); // pointer to hash function from client
 };
 

@@ -255,23 +255,26 @@ inline DataType Queue<DataType>::returnAtLocation(int elementLocation)
 	return current->info;
 }
 
-// created replace function to replace info at a particular element, TODO figure out if there's a better way than to just use find again
+// created replace function to replace info at a particular element, 
+// TODO figure out if there's a better way than to just use find again
 template<class DataType>
 inline bool Queue<DataType>::replace(const DataType & toSubstitute)
 {
-	current = front;
+    (*this).enqueue(toSubstitute);
+	
+	//current = front;
 
-	do
-	{
-		if (current->info == element)
-			current->info = toSubstitute;
-			return true;
+    //do
+    //{
+	//	if (current->info == element)
+	//    	current->info = toSubstitute;
+	//	return true;
 
-		else current = current->next;
+	//	else current = current->next;
 
-	} while (current != back);
+    //} while (current != back);
 
-	return false;
+    //return false;
 }
 
 // 6. print (prints all the elements from front to the end)
@@ -315,7 +318,8 @@ inline void Queue<DataType>::reversePrint()
 		current = back;
 
 		// loop to print nodes
-		// while (current->previous != NULL) - this loop has the runtime error problem, switched with this
+		// while (current->previous != NULL)
+		// this loop has the runtime error problem, switched with this
 		while (current != front)
 		{
 			std::cout << current->info << std::endl;
