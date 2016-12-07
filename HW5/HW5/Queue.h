@@ -262,6 +262,7 @@ inline bool Queue<DataType>::replace(const DataType & toSubstitute)
 {
     (*this).enqueue(toSubstitute);
 	
+	return true;
 	//current = front;
 
     //do
