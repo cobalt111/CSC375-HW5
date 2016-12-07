@@ -24,7 +24,7 @@ public:
 	Queue( );
 	Queue( const Queue<DataType> & apqueue ); 
 	~Queue( );
-	Queue<DataType> & operator =( const Queue<DataType> & rqueue );
+	Queue<DataType> & operator = ( const Queue<DataType> & rqueue );
 	void enqueue( const DataType & element );	
 	bool dequeue( DataType & deqElement );
 	bool peek( DataType & frontElement );  	

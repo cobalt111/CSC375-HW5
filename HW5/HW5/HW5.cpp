@@ -12,10 +12,10 @@ using namespace std;
 int hashFunction(const Profile & toHash) {
 
 	// hash table index to be returned
-	int index;
+	// int index;
 	
 	// placeholder for the ASCII sum of the name strings
-	int asciiNumber = 0;
+	int asciiNumber;
 
 	// loop to find the ASCII sum of the usernames
 	for (int i = 0; i < toHash.user.size(); i++) {
@@ -23,7 +23,7 @@ int hashFunction(const Profile & toHash) {
 	}
 
 	// index will be the remainder of the ASCII divided by 7
-	return index = asciiNumber % 7;
+	return int index = asciiNumber % 7;
 }
 
 int main() {
